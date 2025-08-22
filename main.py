@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import matplotlib as plt
+
 
 video_input = input("Enter Video Path: ")
 cap = cv2.VideoCapture(video_input)
@@ -9,6 +9,7 @@ frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = cap.get(cv2.CAP_PROP_FPS)
 print(f"Total Frame: {frame_count} , FPS: {fps}")
 
+#Retrieve the first frame of a video
 ret, prev_frame = cap.read()
 if not ret:
     print("Couldnt read the first frame from video")
@@ -27,22 +28,21 @@ for frames in range(int(frame_count)):
     if not ret or frames >= frame_end:
         break
     
+    #convert frames into grayscale for a better view of differences
     prev_grey = cv2.cvtColor(prev_frame, cv2.COLOR_RGB2GRAY)
     curr_grey = cv2.cvtColor(curr_frame, cv2.COLOR_RGB2GRAY)
 
     frame_diff = cv2.absdiff(prev_grey, curr_grey)
 
-    cv2.imwrite(f"rgb_result{frames}.png", frame_diff) 
-    
-    # frame_list.append(frame_diff)
-
+    cv2.imwrite(f"result{frames}.png", frame_diff) 
     prev_frame = curr_frame
 
     if cv2.waitKey(30) & 0xFF == ord('q'):
         break
 
+#closes video files and frees up memories
 cap.release()
-cv2.destroyAllWindows()
+
 
     
 
