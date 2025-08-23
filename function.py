@@ -12,6 +12,7 @@ def image_differencing (cap):
         print("Couldnt read the first frame from video")
         exit()
     
+    #Determine which frames to be processed
     frame_start = int(input(f"Pilih frame awal between 0 - {frame_count-1}: "))
     frame_end = int(input(f"Pilih frame akhir between {frame_start+1} - {frame_count}: "))    
     
@@ -32,9 +33,6 @@ def image_differencing (cap):
     
         cv2.imwrite(f"result {frames-1} and {frames}.png", frame_diff) 
         prev_frame = curr_frame
-    
-        if cv2.waitKey(30) & 0xFF == ord('q'):
-            break
         
-    #closes video files and frees up memories
+    #closes video files to frees up memories
     cap.release()
