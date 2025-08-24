@@ -18,19 +18,19 @@ def image_differencing (cap):
     
     for frames in range(int(frame_count)):
         ret, curr_frame = cap.read()
-    
+
         if frames <= frame_start:
             continue
         
         if not ret or frames > frame_end:
             break
-        
+
         #convert frames into grayscale for a better view of differences (reduce noises)
         prev_grey = cv2.cvtColor(prev_frame, cv2.COLOR_RGB2GRAY)
         curr_grey = cv2.cvtColor(curr_frame, cv2.COLOR_RGB2GRAY)
     
         frame_diff = cv2.absdiff(prev_grey, curr_grey)
-    
+       
         cv2.imwrite(f"result {frames-1} and {frames}.png", frame_diff) 
         prev_frame = curr_frame
         
